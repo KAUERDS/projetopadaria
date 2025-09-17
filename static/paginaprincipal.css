@@ -1,0 +1,48 @@
+<style>
+    .fundo {
+      position: relative;
+      width: 100%;
+    }
+
+    .imagem {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .menu {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .sobreposta {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 20px;
+    }
+
+    .topo {
+      text-align: center;
+      padding: 20px;
+    }
+
+  </style>
+</head>

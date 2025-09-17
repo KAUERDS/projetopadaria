@@ -1,0 +1,33 @@
+body {
+  background: Light brown;
+  color: oragem;
+  padding: 20px;
+}
+
+div a {
+  text-decoration: none;
+  margin-right: 15px;
+  color:Dark wood brown;
+  font-weight: bold;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  color:green;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: DarkOrange;
+}
+
+form {
+  margin: auto;
+  padding: 20px;
+  background: red;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  text-align: center;
+}
+

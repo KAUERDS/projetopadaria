@@ -1,0 +1,33 @@
+body {
+  background: Light brown;
+  color: Gray;
+  padding: 20px;
+}
+
+div a {
+  text-decoration: none;
+  margin-right: 15px;
+  color: Dark wood brown;
+  font-weight: bold;
+}
+
+
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: DarkOrange;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: DarkOrange;
+}
+
+form{
+  text-align: center;
+   background: red;
+}
+
+
+
