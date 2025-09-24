@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de receitas</title>
+</head>
+<body>
+ <h1>Aqui estão as receitas da nossa padaria {{pessoa}}</h1>
+    {% if lista %}
+        <hr>
+        {% for nome in lista %}
+            <p>Nome:{{receita[0]}}</p>
+            <hr>
+        {% endfor %}
+    {% endif %}
+
+</body>
+</html>

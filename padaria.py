@@ -1,6 +1,8 @@
 from flask import *
 
 app = Flask(__name__)
+receitas = []
+ingredientes = []
 
 @app.route("/")
 def paginaprincipal():
@@ -43,19 +45,45 @@ def salvar_cardapio():
 
     return render_template('cardapio.html')
 
+
 @app.route('/receitas', methods=['get'])
 def adicionar_receitas():
     global receitas
     nome = request.form.get('nome')
-    receitas.append(nome)
-    mensagem = nome + ' foi adicionado com sucesso'
-    return render_template('receitas.html', msg=mensagem)
-    arquivo = open('receitas.txt', 'a')
-    linha = f'{nome}-{descricao}\n'
-    arquivo.write(linha)
-    arquivo.close()
-
     return render_template('receitas.html')
+
+@app.route('/adicionar', methods=['post','get'])
+def adicionar_receita():
+    if request.method == 'GET':
+        return render_template('adicionareceita.html')
+    global receitas
+    nome = request.form.get('nome')
+    preco = request.form.get('preco')
+    ingredientes = request.form.get('ingredientes')
+
+    receitas.append([nome, preco, ingredientes])
+    mensagem = nome + ' Sua receita foi adicionado com sucesso'
+    return render_template('receitaslista.html', msg=mensagem, lista=receitas)
+
+@app.route('/remover', methods=['post'])
+def remover_receita():
+    #torna a variável modificável no escopo global
+    global receitas
+    nome = request.form.get('nome')
+    if nome in receitas:
+        receitas.remove(nome)
+
+    else:
+        msg = 'nao consta na lista de receitas'
+
+    return render_template('logado.html')
+
+@app.route('/receitaslistas', methods=['get'])
+def listar_receitas():
+    if len(receitas) > 0:
+        return render_template('receitaslista.html', lista=receitas, ingredientes=receitas)
+    else:
+        return render_template('listareceitas.html', ingredientes=receitas)
 
 @app.route('/avaliacoes', methods=['POST','GET'])
 def salvar_avaliacao():
