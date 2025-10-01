@@ -3,15 +3,12 @@ body {
   color: Gray;
   padding: 20px;
 }
-
 div a {
   text-decoration: none;
   margin-right: 15px;
   color: Dark wood brown;
   font-weight: bold;
 }
-
-
 h1 {
   text-align: center;
   margin-bottom: 10px;
@@ -23,10 +20,28 @@ h2 {
   margin-bottom: 30px;
   color: DarkOrange;
 }
+form {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: floralwhite;
+  border-radius: 12px;
+  border: 1px solid burlywood;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-form{
-  text-align: center;
-   background: red;
+form button {
+  width: 100%;
+  padding: 10px;
+  background-color: chocolate;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border: 8px;
+}
+
+form button:hover {
+  background-color: saddlebrown;
 }
 
 

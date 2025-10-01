@@ -8,21 +8,23 @@
 <body>
     <h1>Página ADMIN da Padaria</h1>
     <hr><br>
-    <p>{{msg}}</p>
+    <h2>Adicionar receita</h2>
     <form action="/adicionar" method="post">
-        <h2>Adicionar crush</h2>
-        <input name="nome" placeholder="digite o nome"><br>
+
+        <input type="text" name="nome" placeholder="digite o nome"><br>
         <input type="number" name="preco" placeholder="digite o preço "><br>
-        <input type="text" name="ingredietes" placeholder="digite os ingredietes"><br>
-        <button>Enviar</button>
+        <input type="text" name="ingredientes" placeholder="digite os ingredietes"><br>
+        <button type="submit">Enviar</button>
     </form>
     <br><hr><br>
     <form action="/remover" method="post">
-        <h2>Remover receitas</h2>
-        <input name="nome" placeholder="digite a receita">
+        <h2>Remover receita</h2>
+        <input name="nome" placeholder="digite o nome">
         <button>Enviar</button>
     </form>
     <br><br>
+    <a href="/receitaslista">Listar receitas</a>
 
 </body>
+
 </html>
