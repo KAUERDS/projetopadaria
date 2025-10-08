@@ -1,7 +1,7 @@
 from flask import*
 
 app = Flask(__name__)
-receitas = []
+receitas = [['ovo',5.5,'sal e ovo'],['panqueca',2.1,'ovo e farinha']]
 
 @app.route("/")
 def paginaprincipal():
@@ -34,14 +34,12 @@ def salvar_funcionario():
 
 @app.route('/cardapio', methods=['GET', 'POST'])
 def salvar_cardapio():
-    if request.method == 'POST':
-        produto = request.form.get('produto')
-        preco = request.form.get('preco')
+    if request.method == 'GET':
+        return render_template('cardapio.html',receitas=receitas)
+    else:
+        nome_receita = request.form.get('receita')
+        return 'recebi a seguinte receita ' + nome_receita
 
-        with open('cardapio.txt', 'a') as arquivo:
-            arquivo.write(f'{produto}-{preco}\n')
-
-    return render_template('cardapio.html')
 
 
 @app.route('/adicionar', methods=['GET', 'POST'])

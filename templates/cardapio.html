@@ -12,16 +12,18 @@
   <a href="/cardapio">Cardápio</a>
 </div>
 
-  <h2>Cardápio da Padaria:</h2>
-  <h1>pão de queijo - 1,50</h1>
-   <h1>refrigerante - 2.00</h1>
- <h1>Pão Françes - 0,75</h1>
+
+
 
 <h2>Cardápio</h2>
   <form action="/cardapio" method="post">
-    <input type="text" name="Pedidos" placeholder="Qual é o Perdido" required>
-    <input type="text" name="preco" placeholder="Preço" required>
-    <button type="submit">Salvar Item</button>
+        <select name="receita" >
+            {% for receita in receitas %}
+                <option value="{{receita[0]}}">{{receita[0]}} - R$ {{receita[1]}}</option>
+            {% endfor %}
+        </select><br>
+      <button type="submit">Fazer pedido </button>
   </form>
+
 </body>
 </html>
