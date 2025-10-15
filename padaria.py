@@ -84,14 +84,11 @@ def listar_receitas():
 
 @app.route('/avaliacoes', methods=['GET', 'POST'])
 def salvar_avaliacao():
-    if request.method == 'POST':
-        usuario = request.form.get('usuario')
-        comentario = request.form.get('comentario')
-
-        with open('avaliacoes.txt', 'a') as arquivo:
-            arquivo.write(f'{usuario}-{comentario}\n')
-
-    return render_template('avaliacoes.html')
+    if request.method == 'GET':
+        return render_template('avaliacoes.html', avaliar=salvar_avaliacao)
+    else:
+        nome_receita = request.form.get('avaliar')
+        return 'recebi a seguinte avaliacao ' + nome_receita
 
 
 if __name__ == "__main__":

@@ -2,23 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Avaliações</title>
-  <link rel="stylesheet" href="../static/avalia.css">
+  <title>Receitas</title>
+  <link rel="stylesheet" href="../static/avaliacoes.css">
 </head>
 <body>
 
-  <h1>Avaliações de Produtos</h1>
-
 <div>
   <a href="/">Início</a>
-  <a href="/avaliacoes">Avaliações</a>
+  <a href="/avaliacoes">avaliacoes</a>
 </div>
 
-  <h2>Deixe sua Avaliação</h2>
+
+<h2>Avaliar</h2>
   <form action="/avaliacoes" method="post">
-    <input type="text" name="usuario" placeholder="Seu nome" required>
-    <input type="text" name="comentario" placeholder="Comentário" required>
-    <button type="submit">Salvar Avaliação</button>
+    <input type="text" name="nome" placeholder="Nome da Receita" required>
+    <input type="number" name="" placeholder="nota" required>
+    <button type="submit">Salvar Receita</button>
   </form>
+   <a href="/listadeavaliacoes">Listar avaliacoes</a>
 </body>
 </html>
