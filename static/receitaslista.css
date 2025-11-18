@@ -1,0 +1,93 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", Arial, sans-serif;
+}
+
+/* FUNDO E TEXTO */
+body {
+    background: linear-gradient(180deg, beige, wheat);
+    color: saddlebrown;
+    padding: 40px 20px;
+    line-height: 1.6;
+    animation: fadePage 0.5s ease;
+}
+
+@keyframes fadePage {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* TÍTULO */
+h1 {
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+    color: peru;
+    letter-spacing: 1px;
+    font-weight: 700;
+    text-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+/* LINHA DIVISÓRIA */
+hr {
+    margin: 20px auto 30px;
+    width: 70%;
+    border: none;
+    height: 2px;
+    background: burlywood;
+    border-radius: 5px;
+}
+
+/* CARTÕES DE RECEITA */
+.receita-item {
+    display: block;
+    margin: 12px auto;
+    padding: 16px;
+    max-width: 600px;
+
+    background: rgba(255, 250, 240, 0.9);
+    border-left: 5px solid goldenrod;
+    border-radius: 12px;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    transition: 0.3s ease;
+    text-decoration: none;
+}
+
+.receita-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.20);
+}
+
+.receita-item lista {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: sienna;
+}
+
+/* BOTÃO VOLTAR */
+.voltar {
+    display: block;
+    width: fit-content;
+    margin: 35px auto 0;
+    text-decoration: none;
+
+    background: chocolate;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+    transition: 0.3s ease;
+}
+
+.voltar:hover {
+    background: saddlebrown;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+}
