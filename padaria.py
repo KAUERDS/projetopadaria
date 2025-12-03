@@ -1,6 +1,27 @@
+from sqlalchemy import Column, String, Integer, Boolean, DateTime, Float
+from sqlalchemy.ext.declarative import declarative_base
+
 from flask import*
 
+from dao.banco import Session, init_db
+from dao.usuarioDAO import UsuarioDAO
+
 app = Flask(__name__)
+app.secret_key = 'Eu-Sou-O-Melhor'
+
+init_db()
+
+usuarios = None
+
+
+@app.before_request
+def pegar_sessao():
+    g.session = Session()
+
+@app.teardown_appcontext
+def encerrar_sessao(exception=None):
+    Session.remove()
+
 receitas = [['ovo',5.5,'sal e ovo'],['panqueca',2.1,'ovo e farinha']]
 
 @app.route("/")
@@ -8,15 +29,28 @@ def paginaprincipal():
     return render_template("paginaprincipal.html")
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        senha = request.form.get('senha')
-        if senha == 'kaue':
-            return render_template('logado.html', msg="", lista=receitas)
-        else:
-            return render_template('login.html', erro='Senha incorreta!')
-    return render_template('login.html')
+@app.route('/login', methods=['POST', 'GET'])
+def fazer_login():
+
+    if request.method == 'GET' and 'login' in session:
+        return render_template('logado.html')
+
+    login = request.form.get('loginusuario')
+    senha = request.form.get('senhausuario')
+
+    usuario_dao = UsuarioDAO(g.session)
+
+    #if verificar_login(usuarios, login, senha):
+    usuario = usuario_dao.autenticar(login, senha)
+    if usuario:
+        print(usuario)
+        session['login'] = login
+        return render_template('logado.html')
+    else:
+        #aqui o usuario digitou o login ou senha errado
+        msg = 'Usuário ou senha inválidos'
+        return render_template('index.html', texto=msg)
+
 
 
 @app.route('/funcionarios', methods=['GET', 'POST'])

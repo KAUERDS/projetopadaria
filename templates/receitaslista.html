@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Receitas</title>
+     <link rel="stylesheet" href="../static/receitaslista.css">
 </head>
 <body>
     <h1>Lista de Receitas</h1>
@@ -10,7 +11,7 @@
     <hr>
 
         {% for receita in lista %}
-            <a><lista>{{ receita[0] }}</lista> - R$ {{ receita[1] }} - Ingredientes: {{ receita[2] }}</a>
+            <a><lista>{{ receita[0] }}</lista> -  R$ {{ receita[1] }} <br>  - Ingredientes: {{ receita[2] }}</a>
         {% endfor %}
 
     <a href="/">Voltar</a>
