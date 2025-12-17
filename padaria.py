@@ -1,17 +1,26 @@
-from sqlalchemy import Column, String, Integer, Boolean, DateTime, Float
-from sqlalchemy.ext.declarative import declarative_base
-
-from flask import*
-
+from flask import Flask, render_template, request, session, redirect, g
 from dao.banco import Session, init_db
 from dao.usuarioDAO import UsuarioDAO
+from modelos.modelos import Usuario
 
 app = Flask(__name__)
 app.secret_key = 'Eu-Sou-O-Melhor'
 
 init_db()
 
-usuarios = None
+def criar_admin():
+    session = Session()
+    if not session.query(Usuario).filter_by(email='kaue').first():
+        admin = Usuario(
+            email='kaue',
+            nome='Admi',
+            senha='123'
+        )
+        session.add(admin)
+        session.commit()
+    session.close()
+
+criar_admin()
 
 
 @app.before_request
@@ -22,39 +31,48 @@ def pegar_sessao():
 def encerrar_sessao(exception=None):
     Session.remove()
 
-receitas = [['ovo',5.5,'sal e ovo'],['panqueca',2.1,'ovo e farinha']]
+receitas = [
+    ['ovo', 5.5, 'sal e ovo'],
+    ['panqueca', 2.1, 'ovo e farinha']
+]
 
 @app.route("/")
 def paginaprincipal():
     return render_template("paginaprincipal.html")
 
 
-@app.route('/login', methods=['POST', 'GET'])
+@app.route('/login', methods=['GET', 'POST'])
 def fazer_login():
 
-    if request.method == 'GET' and 'login' in session:
-        return render_template('logado.html')
+    if request.method == 'GET':
+        return render_template('login.html')
 
-    login = request.form.get('loginusuario')
+    email = request.form.get('loginusuario')
     senha = request.form.get('senhausuario')
 
     usuario_dao = UsuarioDAO(g.session)
+    usuario = usuario_dao.autenticar(email, senha)
 
-    #if verificar_login(usuarios, login, senha):
-    usuario = usuario_dao.autenticar(login, senha)
     if usuario:
-        print(usuario)
-        session['login'] = login
-        return render_template('logado.html')
+        session['login'] = usuario.email
+        return render_template('logado.html', usuario=usuario)
     else:
-        #aqui o usuario digitou o login ou senha errado
         msg = 'Usuário ou senha inválidos'
-        return render_template('index.html', texto=msg)
+        return render_template('login.html', texto=msg)
 
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 
 
 @app.route('/funcionarios', methods=['GET', 'POST'])
 def salvar_funcionario():
+
+    if 'login' not in session:
+        return redirect('/login')
+
     if request.method == 'POST':
         nome = request.form.get('nome')
         cargo = request.form.get('cargo')
@@ -68,62 +86,54 @@ def salvar_funcionario():
 
 @app.route('/cardapio', methods=['GET', 'POST'])
 def salvar_cardapio():
-    if request.method == 'GET':
-        return render_template('cardapio.html',receitas=receitas)
-    else:
-        nome_receita = request.form.get('receita')
-        return 'recebi a seguinte receita ' + nome_receita
 
+    if request.method == 'POST':
+        nome_receita = request.form.get('receita')
+        return f'Pedido realizado: {nome_receita}'
+
+    return render_template('cardapio.html', receitas=receitas)
 
 
 @app.route('/adicionar', methods=['GET', 'POST'])
 def adicionar_receita():
-    print('cheguei')
-    global receitas
+
+    if 'login' not in session:
+        return redirect('/login')
+
     if request.method == 'POST':
         nome = request.form.get('nome')
         preco = request.form.get('preco')
         ingredientes = request.form.get('ingredientes')
 
-        print(nome)
-        print( preco)
-        print(ingredientes)
-
         receitas.append([nome, preco, ingredientes])
-        msg = f'{nome} foi adicionada com sucesso!'
-        return render_template('logado.html', msg=msg, lista=receitas)
+        msg = f'Receita "{nome}" adicionada com sucesso!'
+
+        return render_template('logado.html', msg=msg)
 
     return render_template('adicionareceita.html')
 
-
 @app.route('/remover', methods=['POST'])
 def remover_receita():
-    global receitas
+
+    if 'login' not in session:
+        return redirect('/login')
+
     nome = request.form.get('nome')
+
     for receita in receitas:
         if receita[0] == nome:
             receitas.remove(receita)
-            msg = f'{nome} removida com sucesso!'
+            msg = f'Receita "{nome}" removida com sucesso!'
             break
     else:
-        msg = f'{nome} não foi encontrada na lista.'
+        msg = f'Receita "{nome}" não encontrada.'
 
-    return render_template('logado.html', msg=msg, lista=receitas)
+    return render_template('logado.html', msg=msg)
 
 
-@app.route('/receitaslista', methods=['GET'])
+@app.route('/receitaslista')
 def listar_receitas():
     return render_template('receitaslista.html', lista=receitas)
-
-
-@app.route('/avaliacoes', methods=['GET', 'POST'])
-def salvar_avaliacao():
-    if request.method == 'GET':
-        return render_template('avaliacoes.html', avaliar=salvar_avaliacao)
-    else:
-        nome_receita = request.form.get('avaliar')
-        return 'recebi a seguinte avaliacao ' + nome_receita
-
 
 if __name__ == "__main__":
     app.run(debug=True)

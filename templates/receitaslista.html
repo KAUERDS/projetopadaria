@@ -11,8 +11,10 @@
     <hr>
 
         {% for receita in lista %}
-            <a><lista>{{ receita[0] }}</lista> -  R$ {{ receita[1] }} <br>  - Ingredientes: {{ receita[2] }}</a>
+            <a><lista>{{ receita[0] }}</lista> -  R$ {{ receita[1] }} - Ingredientes: {{ receita[2] }}</a>
         {% endfor %}
+
+    <br>
 
     <a href="/">Voltar</a>
 </body>
